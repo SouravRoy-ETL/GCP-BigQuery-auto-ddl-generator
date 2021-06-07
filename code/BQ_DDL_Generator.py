@@ -5,7 +5,6 @@ import json
 def ddl_generation(total_csv):
     l=total_csv['TARGET_TABLE_NAME'].nunique()
     listofuniquetargets = pd.unique(total_csv['TARGET_TABLE_NAME']).tolist()
-    #print(total_csv['Description.'])
     for i in range(l):
         target0 = total_csv.loc[total_csv['TARGET_TABLE_NAME'] == listofuniquetargets[i]]
         t=target0['TARGET_TABLE_NAME'].iloc[0]
@@ -17,7 +16,7 @@ def ddl_generation(total_csv):
         e=target0['DESCRIPTION'].tolist()
         pop=[]
         f = open(r'out/bq_DDL.txt', 'a')
-        f.write('CREATE OR REPLACE TABLE `vf-hu-tr-tst-non-live.'+str.lower(v)+'.'+str.lower(t)+'`'+'(')
+        f.write('CREATE OR REPLACE TABLE `bt-uk-nucl-tst-live.'+str.lower(v)+'.'+str.lower(t)+'`'+'(')
         for n in range(0, len(a)):
             if(target0['NULLABLE'].iloc[n]=='REQUIRED'):
                 if pd.isnull(e[n]):
@@ -82,8 +81,6 @@ if(__name__=='__main__'):
     total_csv.replace('', np.nan, inplace=True)
     total_csv['NULLABLE'] = total_csv['NULLABLE'].replace(['N'],'REQUIRED')
     total_csv['NULLABLE'] = total_csv['NULLABLE'].replace(['Y'],'NULLABLE')
-    total_csv['TARGET_COLUMN_NAME'] = total_csv['TARGET_COLUMN_NAME'].replace('TRT_UPDATE_DATETIME','TR_UPDATE_DATETIME')
-    total_csv['TARGET_COLUMN_NAME'] = total_csv['TARGET_COLUMN_NAME'].replace('TRT_INSERT_DATETIME','TR_INSERT_DATETIME')
     total_csv['TARGET_DATA_TYPE'] = total_csv['TARGET_DATA_TYPE']
     ddl_generation(total_csv)
     #recipe_generation(total_csv)
