@@ -16,7 +16,7 @@ def ddl_generation(total_csv):
         d=target0['TARGET_PARTITION'].tolist()
         e=target0['DESCRIPTION'].tolist()
         pop=[]
-        f = open(r'C:\Users\Sourav Roy\Desktop\Workspace\VFHU\D2S1\NC\Output_DDL\D2S2_NetCracker_DDL.txt', 'a')
+        f = open(r'out/bq_DDL.txt', 'a')
         f.write('CREATE OR REPLACE TABLE `vf-hu-tr-tst-non-live.'+str.lower(v)+'.'+str.lower(t)+'`'+'(')
         for n in range(0, len(a)):
             if(target0['NULLABLE'].iloc[n]=='REQUIRED'):
@@ -75,8 +75,8 @@ def ddl_generation(total_csv):
                 f.write(par+' Options (Description= "data ingested into '+str(t)+'");'+'\n');
         f.close()
 if(__name__=='__main__'):
-    #total_csv = pd.read_excel(r"C:\Users\Sourav Roy\Desktop\Workspace\VFHU\D1S4\Input\Netcracker_D1S4_Mapping_sheet_With_PII_v5.xlsx", sheet_name=0, header=None, skiprows=0, na_values=' ')
-    total_csv = pd.read_csv(r"C:\Users\Sourav Roy\Desktop\Workspace\VFHU\D2S1\NC\Input\D2S1_NC_Mapping.csv",encoding='utf8', sep=',', header=None, skiprows=0, na_values=' ', error_bad_lines=False)
+    #total_csv = pd.read_excel(r"", sheet_name=0, header=None, skiprows=0, na_values=' ')
+    total_csv = pd.read_csv(r"input/Mapping_Sheet.csv",encoding='utf8', sep=',', header=None, skiprows=0, na_values=' ', error_bad_lines=False)
     total_csv.columns = total_csv.iloc[0]
     total_csv = total_csv[1:]
     total_csv.replace('', np.nan, inplace=True)
