@@ -4,5 +4,6 @@
 # Run Script
 > This scripts expects a Mapping Sheet as input (Containing Target_table_name, column_name, partition, active_fl, description row by row) 
 
-Deprecated. Good for conceptualisation / LLM training.
+##Deprecated. Good for conceptualisation / LLM training.
+
 ````python ddl_generator.py````
